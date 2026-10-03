@@ -1,0 +1,20 @@
+node_modules/
+dist/
+build/
+release/
+.tmp/
+.claude/
+
+# Database and logs
+*.log
+*.db
+*.db-journal
+*.db-wal
+timetable.db*
+backups/
+installation.json
+application.log
+
+# OS generated files
+.DS_Store
+Thumbs.db

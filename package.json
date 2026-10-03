@@ -1,0 +1,44 @@
+{
+  "name": "university-timetable-management",
+  "productName": "University Timetable Management",
+  "version": "1.0.0",
+  "description": "University data management, hybrid timetable generation, constraint solving and AI-assisted timetable editing as an offline-first Windows desktop application.",
+  "author": {
+    "name": "University Timetable Management Project"
+  },
+  "license": "UNLICENSED",
+  "main": "src/main/main.js",
+  "scripts": {
+    "dev:renderer": "vite",
+    "dev:electron": "cross-env TMS_DEV_SERVER=http://localhost:5173 electron .",
+    "dev": "concurrently -k -n renderer,electron -c cyan,magenta \"npm:dev:renderer\" \"wait-on tcp:5173 && npm run dev:electron\"",
+    "build:renderer": "vite build",
+    "build": "npm run build:renderer",
+    "start": "npm run build:renderer && electron .",
+    "icon": "node tools/make-icon.js",
+    "prepare:win": "node tools/prepare-win-build.js",
+    "dist": "npm run prepare:win && npm run icon && npm run build:renderer && electron-builder --win nsis --x64",
+    "pack:dir": "npm run prepare:win && npm run icon && npm run build:renderer && electron-builder --win --dir",
+    "test": "node test/run-tests.js",
+    "test:app": "npm run build:renderer && node test/smoke-app.js",
+    "test:packaged": "node test/verify-packaged.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "node-sqlite3-wasm": "^0.8.60"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.1",
+    "vite": "^6.0.11",
+    "wait-on": "^8.0.2"
+  }
+}

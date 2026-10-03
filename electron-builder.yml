@@ -1,0 +1,39 @@
+appId: com.university.timetable.desktop
+productName: University Timetable Management
+copyright: University Timetable Management Project
+
+directories:
+  output: release
+  buildResources: build
+
+# Only the runtime backend deps are shipped; React/Vite are compiled into dist/renderer.
+files:
+  - src/main/**/*
+  - src/server/**/*
+  - dist/renderer/**/*
+  - package.json
+  - '!**/*.map'
+
+asar: true
+# node-sqlite3-wasm loads its .wasm binary from disk with fs.readFileSync, which
+# cannot read through the asar archive, so that package stays unpacked.
+asarUnpack:
+  - '**/node_modules/node-sqlite3-wasm/**'
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: UniversityTimetableManagement-Setup-${version}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: University Timetable Management
+  deleteAppDataOnUninstall: false
+
+publish: null
